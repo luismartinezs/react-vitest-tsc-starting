@@ -12,7 +12,6 @@ specifiers:
   '@vitest/ui': ^0.12.4
   autoprefixer: ^10.4.4
   c8: ^7.11.2
-  immer: ^9.0.12
   jsdom: ^19.0.0
   postcss: ^8.4.12
   react: ^18.0.0
@@ -26,7 +25,6 @@ specifiers:
 dependencies:
   '@iconify/json': 2.1.28
   '@svgr/core': 6.2.1
-  immer: 9.0.12
   react: 18.0.0
   react-dom: 18.0.0_react@18.0.0
   unplugin-icons: 0.14.1_ulpcxrksddnpvsa2babyvx3nae
@@ -1530,10 +1528,6 @@ packages:
     dependencies:
       safer-buffer: 2.1.2
     dev: true
-
-  /immer/9.0.12:
-    resolution: {integrity: sha512-lk7UNmSbAukB5B6dh9fnh5D0bJTOFKxVg2cyJWTYrWRfhLrLMBquONcUs3aFq507hNoIZEDDh8lb8UtOizSMhA==}
-    dev: false
 
   /import-fresh/3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
