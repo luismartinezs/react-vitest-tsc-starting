@@ -1,7 +1,16 @@
 {
   "name": "react-vitest-tsc-starting",
-  "private": true,
   "version": "0.0.0",
+  "description": "React starter template with vite, vitest, react testing library, tailwind and typescript",
+  "homepage": "https://github.com/luismartinezs/react-vitest-tsc-starting#readme",
+  "bugs": "https://github.com/luismartinezs/react-vitest-tsc-starting/issues",
+  "license": "MIT",
+  "author": "Luis Martinez <luismartinezwebdev@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/luismartinezs/react-vitest-tsc-starting"
+  },
+  "funding": "https://github.com/sponsors/luismartinezs",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
