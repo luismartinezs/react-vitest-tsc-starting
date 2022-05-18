@@ -14,20 +14,24 @@ const DEBOUNCE_DELAY = 500;
 export default function Autocomplete() {
   const [query, setQuery] = useState("");
   const [items, setItems] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     let ignore = false;
 
     const fetchData = async (q) => {
       const url = `${API_URL}?=query=${q}`;
+      setLoading(true);
       try {
         const res = await axios.get(url);
         if (!ignore) {
           setItems(res.data);
         }
       } catch (err) {
-        console.log(err);
-        return null;
+        setError(true);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -56,14 +60,20 @@ export default function Autocomplete() {
         />
       </div>
       <div className="list is-hoverable" />
-      <ul>
-        {items &&
-          items.hits.map((hit, idx) => (
-            <li key={idx}>
-              <a href={hit.url}>{hit.title}</a>
-            </li>
-          ))}
-      </ul>
+      {error && <div>Something went wrong ...</div>}
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        items && (
+          <ul>
+            {items.hits.map((hit, idx) => (
+              <li key={idx}>
+                <a href={hit.url}>{hit.title}</a>
+              </li>
+            ))}
+          </ul>
+        )
+      )}
     </div>
   );
 }
