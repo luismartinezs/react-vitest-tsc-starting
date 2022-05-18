@@ -1,10 +1,10 @@
 import React from 'react'
-import HelloWorld from '@/components/HelloWorld'
+import Autocomplete from '@/components/Autocomplete'
 
 function App(): JSX.Element {
   return (
     <div>
-      <HelloWorld message="Hello World" />
+      <Autocomplete />
     </div>
   );
 }
