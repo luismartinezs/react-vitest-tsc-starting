@@ -11,14 +11,14 @@ import axios from "axios";
 const API_URL = "https://hn.algolia.com/api/v1/search";
 const DEBOUNCE_DELAY = 500;
 
-export default function Autocomplete() {
+const useApi = () => {
   const [query, setQuery] = useState("");
-  const [items, setItems] = useState(null);
+  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    let ignore = false;
+    let ignore = false; // tag to prevent setting state from unmounted components
 
     const fetchData = async (q) => {
       const url = `${API_URL}?=query=${q}`;
@@ -26,7 +26,7 @@ export default function Autocomplete() {
       try {
         const res = await axios.get(url);
         if (!ignore) {
-          setItems(res.data);
+          setData(res.data);
         }
       } catch (err) {
         setError(true);
@@ -37,6 +37,8 @@ export default function Autocomplete() {
 
     if (query.length) {
       fetchData(query);
+    } else {
+      setData(null);
     }
 
     return () => {
@@ -44,9 +46,11 @@ export default function Autocomplete() {
     };
   }, [query]);
 
-  const handleChange = (event) => {
-    setQuery(event.target.value);
-  };
+  return [{ data, loading, error, query }, setQuery];
+};
+
+export default function Autocomplete() {
+  const [{ data, loading, error, query }, setQuery] = useApi();
 
   return (
     <div className="wrapper">
@@ -56,17 +60,19 @@ export default function Autocomplete() {
           className="input"
           aria-label="Search item"
           value={query}
-          onChange={handleChange}
+          onChange={(event) => setQuery(event.target.value)}
         />
       </div>
       <div className="list is-hoverable" />
+
       {error && <div>Something went wrong ...</div>}
+
       {loading ? (
         <div>Loading...</div>
       ) : (
-        items && (
+        data && (
           <ul>
-            {items.hits.map((hit, idx) => (
+            {data.hits.map((hit, idx) => (
               <li key={idx}>
                 <a href={hit.url}>{hit.title}</a>
               </li>
