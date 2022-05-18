@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import classnames from "classnames";
 // you should import `lodash` as a whole module
 import lodash from "lodash";
@@ -50,7 +50,24 @@ const useApi = () => {
 };
 
 export default function Autocomplete() {
-  const [{ data, loading, error, query }, setQuery] = useApi();
+  const [{ data, loading, error }, setQuery] = useApi();
+
+  const handleChange = (event) => {
+    setQuery(event.target.value);
+  };
+
+  // Memoize debounced handler, calls debounce only during initial render
+  const debouncedHandleChange = useMemo(
+    () => lodash.debounce(handleChange, DEBOUNCE_DELAY),
+    [] // no dependencies
+  );
+
+  // stop invocation of debouncedHandleChange after component unmounts
+  useEffect(() => {
+    return () => {
+      debouncedHandleChange.cancel()
+    }
+  }, [])
 
   return (
     <div className="wrapper">
@@ -59,8 +76,7 @@ export default function Autocomplete() {
           type="text"
           className="input"
           aria-label="Search item"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
+          onChange={debouncedHandleChange}
         />
       </div>
       <div className="list is-hoverable" />
