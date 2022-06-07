@@ -20,6 +20,6 @@
     },
     "types": ["@testing-library/react", "react/next", "react-dom/next", "unplugin-icons/types/react"]
   },
-  "include": ["src", "test"],
+  "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -8,7 +8,7 @@ import {
   fireEvent,
   logRoles,
 } from "@testing-library/react";
-import HelloWorld from "@/components/HelloWorld";
+import HelloWorld from "./HelloWorld";
 
 afterEach(() => {
   cleanup();
